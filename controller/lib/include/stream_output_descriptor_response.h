@@ -182,6 +182,11 @@ namespace avdecc_lib
          */
         
         AVDECC_CONTROLLER_LIB32_API virtual bool STDCALL get_stream_info_flag(const char *flag) = 0;
+        
+        /**
+         * \return The corresponding stream format by index of this Stream Output.
+         */
+        AVDECC_CONTROLLER_LIB32_API virtual uint64_t STDCALL get_stream_format_by_index(size_t stream_format_index) = 0;
     };
 }
 

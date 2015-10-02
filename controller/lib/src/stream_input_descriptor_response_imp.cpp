@@ -46,9 +46,28 @@ namespace avdecc_lib
     {
         memset(&stream_input_flags, 0, sizeof(struct stream_input_desc_stream_flags));
         stream_flags_init();
+        stream_formats_init(frame);
     }
     
     stream_input_descriptor_response_imp::~stream_input_descriptor_response_imp() {}
+    
+    void stream_input_descriptor_response_imp::stream_formats_init(const uint8_t *frame)
+    {
+        uint16_t offset = ETHER_HDR_SIZE + JDKSAVDECC_AEM_COMMAND_READ_DESCRIPTOR_RESPONSE_LEN + formats_offset();
+        uint64_t stream_format = 0;
+        
+        for(uint16_t i = 0; i < number_of_formats(); i++)
+        {
+            stream_format = jdksavdecc_uint64_get(&buffer[position + offset], 0);
+            stream_formats_vec.push_back(stream_format);
+            offset += 0x8;
+        }
+    }
+    
+    uint64_t STDCALL stream_input_descriptor_response_imp::get_stream_format_by_index(size_t stream_format_index)
+    {
+        return stream_formats_vec.at(stream_format_index);
+    }
     
     void stream_input_descriptor_response_imp::stream_flags_init()
     {

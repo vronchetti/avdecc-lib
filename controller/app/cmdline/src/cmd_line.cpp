@@ -2075,6 +2075,10 @@ int cmd_line::do_view_descriptor(std::string desc_name, uint16_t desc_index)
                     atomic_cout << "\nbackedup_talker_unique = " << std::dec << stream_input_resp_ref->backedup_talker_unique();
                     atomic_cout << "\navb_interface_index = " << std::dec << stream_input_resp_ref->avb_interface_index();
                     atomic_cout << "\nbuffer_length = " << std::dec << stream_input_resp_ref->buffer_length() << std::endl;
+                    for(uint16_t i = 0; i < stream_input_resp_ref->number_of_formats(); i++)
+                    {
+                        atomic_cout << "stream_format_" << i << " = " << avdecc_lib::utility::ieee1722_format_value_to_name(stream_input_resp_ref->get_stream_format_by_index(i)) << std::endl;
+                    }
                     delete(stream_input_resp_ref);
                 }
             }
@@ -2115,6 +2119,10 @@ int cmd_line::do_view_descriptor(std::string desc_name, uint16_t desc_index)
                     atomic_cout << "\nbackedup_talker_unique = " << std::dec << stream_output_resp_ref->backedup_talker_unique();
                     atomic_cout << "\navb_interface_index = " << std::dec << stream_output_resp_ref->avb_interface_index();
                     atomic_cout << "\nbuffer_length = " << std::dec << stream_output_resp_ref->buffer_length() << std::endl;
+                    for(uint16_t i = 0; i < stream_output_resp_ref->number_of_formats(); i++)
+                    {
+                        atomic_cout << "stream_format_" << i << " = " << avdecc_lib::utility::ieee1722_format_value_to_name(stream_output_resp_ref->get_stream_format_by_index(i)) << std::endl;
+                    }
                     delete(stream_output_resp_ref);
                 }
             }

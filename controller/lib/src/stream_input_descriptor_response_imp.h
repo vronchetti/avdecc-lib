@@ -53,6 +53,8 @@ namespace avdecc_lib
             bool tertiary_backup_valid;
         };
         struct stream_input_desc_stream_flags stream_input_flags;
+
+        std::vector<uint64_t> stream_formats_vec; //store supported stream formats
     public:
         stream_input_descriptor_response_imp(const uint8_t *frame, size_t frame_len, ssize_t pos);
         virtual ~stream_input_descriptor_response_imp();
@@ -84,11 +86,17 @@ namespace avdecc_lib
         uint16_t STDCALL backedup_talker_unique();
         uint16_t STDCALL avb_interface_index();
         uint32_t STDCALL buffer_length();
+        uint64_t STDCALL get_stream_format_by_index(size_t stream_format_index);
     private:
         /**
-         * Store the stream flags componenets of the STREAM INPUT descriptor object in a vector.
+         * Store the stream flags components of the STREAM INPUT descriptor object in a vector.
          */
         void stream_flags_init();
+        
+        /**
+         * Store the supported stream formats of the STREAM INPUT descriptor object in a vector.
+         */
+        void stream_formats_init(const uint8_t *frame);
         
         /**
          * Update the internal STREAM INPUT descriptor's stream format field.
